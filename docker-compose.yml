@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: compressor-api
+    ports:
+      - "${PORT:-8001}:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WORKERS=${WORKERS:-4}
+      - MAX_ZIP_SIZE=${MAX_ZIP_SIZE:-524288000}
+      - MAX_PDF_SIZE=${MAX_PDF_SIZE:-104857600}
+      - MAX_PDFS=${MAX_PDFS:-100}
+      - PROCESSING_TIMEOUT=${PROCESSING_TIMEOUT:-3600}
+      - CLEANUP_DELAY=${CLEANUP_DELAY:-60}
+      - TEMP_DIR=/tmp/compressor-api
+    volumes:
+      - compressor-temp:/tmp/compressor-api
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+volumes:
+  compressor-temp:
+    driver: local
+
