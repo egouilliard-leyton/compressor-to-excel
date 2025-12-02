@@ -15,6 +15,12 @@ This document provides comprehensive information for integrating the Compressor 
 
 ## 1. Project Overview
 
+### Repository Location
+
+**GitLab Repository**: https://gitlab.leyton.fr/caes/compressor-to-excel-api
+
+This is the main repository containing all source code, documentation, and Docker configuration files for the Compressor to Excel API.
+
 ### What This Project Does
 
 The Compressor to Excel API is a REST service that processes ZIP files containing compressor PDF data and converts them into structured Excel files. The system extracts date and consumption values from PDF files and organizes them into Excel spreadsheets with separate sheets for each compressor number.
@@ -771,6 +777,8 @@ Use this checklist to track Tool Hub integration progress:
 ## Summary
 
 The Compressor to Excel API is **fully implemented and ready for integration**. The API provides a complete backend service for processing ZIP files containing compressor PDFs and generating Excel output files.
+
+**Repository**: https://gitlab.leyton.fr/caes/compressor-to-excel-api
 
 **What you need to build**: A simple UI in the Tool Hub with file upload, processing status, and download functionality. The API handles all the complex processing logic, so the frontend can focus on providing a clean user experience.
 
