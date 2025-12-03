@@ -6,7 +6,7 @@ Usage:
     python run_api.py
 
 Or with custom host/port:
-    python run_api.py --host 0.0.0.0 --port 8000
+    python run_api.py --host 0.0.0.0 --port 8001
 """
 import uvicorn
 import argparse
@@ -22,8 +22,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "--port",
         type=int,
-        default=8000,
-        help="Port to bind to (default: 8000)"
+        default=8001,
+        help="Port to bind to (default: 8001)"
     )
     parser.add_argument(
         "--reload",

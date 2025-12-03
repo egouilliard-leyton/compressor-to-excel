@@ -52,15 +52,15 @@ USER appuser
 RUN mkdir -p /tmp/compressor-api
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health').read()" || exit 1
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8001/api/health').read()" || exit 1
 
 # Default environment variables
 ENV HOST=0.0.0.0
-ENV PORT=8000
+ENV PORT=8001
 ENV WORKERS=4
 ENV TEMP_DIR=/tmp/compressor-api
 

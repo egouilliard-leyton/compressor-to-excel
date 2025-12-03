@@ -7,10 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: compressor-api
     ports:
-      - "${PORT:-8001}:8000"
+      - 8001:8001
     environment:
-      - HOST=0.0.0.0
-      - PORT=8000
+      - PORT=8001
       - WORKERS=${WORKERS:-4}
       - MAX_ZIP_SIZE=${MAX_ZIP_SIZE:-524288000}
       - MAX_PDF_SIZE=${MAX_PDF_SIZE:-104857600}
@@ -22,7 +21,7 @@ services:
       - compressor-temp:/tmp/compressor-api
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health').read()"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/api/health').read()"]
       interval: 30s
       timeout: 10s
       retries: 3
