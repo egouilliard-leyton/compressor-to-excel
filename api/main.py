@@ -7,7 +7,7 @@ and receiving Excel output with combined compressor data.
 import tempfile
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, HTTPException, status
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import sys
 import os
@@ -47,6 +47,31 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/", tags=["Root"])
+async def root():
+    """
+    Root endpoint providing API information.
+    
+    Returns:
+        JSONResponse: API information and available endpoints
+    """
+    return JSONResponse(
+        content={
+            "name": settings.API_TITLE,
+            "version": settings.API_VERSION,
+            "description": settings.API_DESCRIPTION,
+            "status": "running",
+            "endpoints": {
+                "health": "/api/health",
+                "upload": "/api/upload",
+                "docs": "/api/docs",
+                "redoc": "/api/redoc",
+                "openapi": "/api/openapi.json"
+            }
+        }
+    )
 
 
 @app.get("/api/health", response_model=HealthResponse, tags=["Health"])
